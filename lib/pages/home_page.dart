@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_reader/pages/map_history_page.dart';
+import 'package:qr_reader/pages/ulr_history_page.dart';
+import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/widgets/cuscom_navigationbar.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 
@@ -19,11 +23,27 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('Home Page'),
+        child: _HomePageBody(),
       ),
       bottomNavigationBar: CustomNavigationBar(),
       floatingActionButton: ScanButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+}
+
+class _HomePageBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final uiProvider = Provider.of<UiProvider>(context);
+    final currentIndex = uiProvider.selectedMenuOpt;
+    switch (currentIndex) {
+      case 0:
+        return MapHistoryPage();
+      case 1:
+        return UrlHistoryPage();
+      default:
+        return MapHistoryPage();
+    }
   }
 }
