@@ -60,4 +60,29 @@ class DBProvide {
     // res es el ID del ultimo registro insertado.
     return res;
   }
+
+  Future<ScanModel> getScanById(int id) async {
+    final db = await database;
+    final res = await db.query('Scans', where: 'id = ?', whereArgs: [id]);
+
+    return res.isEmpty ? ScanModel.fromJson(res.first) : null;
+  }
+
+  Future<List<ScanModel>> getScans() async {
+    final db = await database;
+    final res = await db.query('Scans');
+
+    return res.isEmpty
+        ? res.map((e) => ScanModel.fromJson(res.first)).toList()
+        : [];
+  }
+
+  Future<List<ScanModel>> getScansByType(String type) async {
+    final db = await database;
+    final res = await db.query('Scans', where: 'type = ?', whereArgs: [type]);
+
+    return res.isEmpty
+        ? res.map((e) => ScanModel.fromJson(res.first)).toList()
+        : [];
+  }
 }
