@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:qr_reader/providers/scan_list_provider.dart';
 
 class UrlHistoryPage extends StatelessWidget {
-  const UrlHistoryPage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final scanListProvider = Provider.of<ScanListProvider>(context);
@@ -12,13 +10,21 @@ class UrlHistoryPage extends StatelessWidget {
     return Scaffold(
       body: ListView.builder(
         itemCount: scans.length,
-        itemBuilder: (_, i) => ListTile(
-          leading:
-              Icon(Icons.home_outlined, color: Theme.of(context).primaryColor),
-          title: Text(scans[i].value),
-          subtitle: Text(scans[i].id.toString()),
-          trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-          onTap: () => print(scans[i].id),
+        itemBuilder: (_, i) => Dismissible(
+          key: UniqueKey(),
+          background: Container(color: Colors.red),
+          onDismissed: (direction) {
+            Provider.of<ScanListProvider>(context, listen: false)
+                .deleteById(scans[i].id);
+          },
+          child: ListTile(
+            leading: Icon(Icons.home_outlined,
+                color: Theme.of(context).primaryColor),
+            title: Text(scans[i].value),
+            subtitle: Text(scans[i].id.toString()),
+            trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+            onTap: () => print(scans[i].id),
+          ),
         ),
       ),
     );

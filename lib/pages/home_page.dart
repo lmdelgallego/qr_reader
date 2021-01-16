@@ -10,8 +10,6 @@ import 'package:qr_reader/widgets/cuscom_navigationbar.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
