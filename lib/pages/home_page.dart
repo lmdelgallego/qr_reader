@@ -39,9 +39,6 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    // TODO: Leer la bd
-    
-
     switch (currentIndex) {
       case 0:
         return MapHistoryPage();
