@@ -40,7 +40,7 @@ class _HomePageBody extends StatelessWidget {
     final currentIndex = uiProvider.selectedMenuOpt;
 
     // TODO: Leer la bd
-    DBProvide.db.database;
+    
 
     switch (currentIndex) {
       case 0:
