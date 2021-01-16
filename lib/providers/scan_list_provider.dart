@@ -9,31 +9,31 @@ class ScanListProvider extends ChangeNotifier {
     final newScan = new ScanModel(value: value);
     final id = await DBProvide.db.newScan(newScan);
     newScan.id = id;
-    if(this.selectedType === newScan.type) {
+    if (this.selectedType == newScan.type) {
       this.scans.add(newScan);
       notifyListeners();
     }
   }
 
-  loadScans() async{
+  loadScans() async {
     final scans = await DBProvide.db.getScans();
     this.scans = [...scans];
     notifyListeners();
   }
 
-  loadScansByTy(String type) async{
+  loadScansByTy(String type) async {
     final scans = await DBProvide.db.getScansByType(type);
     this.selectedType = type;
     this.scans = [...scans];
     notifyListeners();
   }
 
-  deleteById(int id) async{
+  deleteById(int id) async {
     await DBProvide.db.deleteScan(id);
     this.loadScansByTy(this.selectedType);
   }
 
-  deleteAlls() async{
+  deleteAlls() async {
     await DBProvide.db.deleteAllScans();
     this.scans = [];
     notifyListeners();
