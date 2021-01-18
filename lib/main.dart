@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_reader/pages/map_history_page.dart';
 import 'package:qr_reader/providers/scan_list_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'pages/home_page.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'home': (_) => HomePage(),
           'maps': (_) => MapsPage(),
+          'map': (_) => MapHistoryPage(),
         },
         theme: ThemeData(
           primaryColor: Colors.deepOrange,
