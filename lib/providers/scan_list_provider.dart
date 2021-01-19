@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:qr_reader/models/scan_models.dart';
 import 'package:qr_reader/providers/db_provider.dart';
 
 class ScanListProvider extends ChangeNotifier {
   List<ScanModel> scans = [];
-  String selectedType = 'http';
+  String tipoSeleccionado = 'http';
 
-  Future<ScanModel> newScan(String value) async {
-    final newScan = new ScanModel(value: value);
-    final id = await DBProvide.db.newScan(newScan);
-    newScan.id = id;
-    if (this.selectedType == newScan.type) {
-      this.scans.add(newScan);
+  Future<ScanModel> nuevoScan(String valor) async {
+    final nuevoScan = new ScanModel(valor: valor);
+    final id = await DBProvider.db.nuevoScan(nuevoScan);
+    // Asignar el ID de la base de datos al modelo
+    nuevoScan.id = id;
+
+    if (this.tipoSeleccionado == nuevoScan.tipo) {
+      this.scans.add(nuevoScan);
       notifyListeners();
     }
 
-    return newScan;
+    return nuevoScan;
   }
 
-  loadScans() async {
-    final scans = await DBProvide.db.getScans();
+  cargarScans() async {
+    final scans = await DBProvider.db.getTodosLosScans();
     this.scans = [...scans];
     notifyListeners();
   }
 
-  loadScansByTy(String type) async {
-    final scans = await DBProvide.db.getScansByType(type);
-    this.selectedType = type;
+  cargarScanPorTipo(String tipo) async {
+    final scans = await DBProvider.db.getScansPorTipo(tipo);
     this.scans = [...scans];
+    this.tipoSeleccionado = tipo;
     notifyListeners();
   }
 
-  deleteById(int id) async {
-    await DBProvide.db.deleteScan(id);
-  }
-
-  deleteAlls() async {
-    await DBProvide.db.deleteAllScans();
+  borrarTodos() async {
+    await DBProvider.db.deleteAllScans();
     this.scans = [];
     notifyListeners();
+  }
+
+  borrarScanPorId(int id) async {
+    await DBProvider.db.deleteScan(id);
   }
 }

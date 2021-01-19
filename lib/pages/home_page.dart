@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.delete_forever),
             onPressed: () {
               Provider.of<ScanListProvider>(context, listen: false)
-                  .deleteAlls();
+                  .borrarTodos();
             },
           )
         ],
@@ -45,13 +45,12 @@ class _HomePageBody extends StatelessWidget {
 
     switch (currentIndex) {
       case 0:
-        scanListProvider.loadScansByTy('geo');
+        scanListProvider.cargarScanPorTipo('geo');
         return MapsPage();
       case 1:
-        scanListProvider.loadScansByTy('http');
+        scanListProvider.cargarScanPorTipo('http');
         return UrlHistoryPage();
       default:
-        scanListProvider.loadScansByTy('geo');
         return MapsPage();
     }
   }

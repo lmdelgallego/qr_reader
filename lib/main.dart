@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         initialRoute: 'home',
         routes: {
           'home': (_) => HomePage(),
-          'maps': (_) => MapsPage(),
           'map': (_) => MapHistoryPage(),
         },
         theme: ThemeData(
